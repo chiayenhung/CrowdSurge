@@ -61,7 +61,7 @@ module.exports = (grunt) ->
         files: ['**/*.sass']
         tasks: [ 'clean', 'sass', 'coffee']
       coffee:
-        files: ['#{DEV_PATH}/coffee/**/*.coffee']
+        files: ['**/*.coffee']
         tasks: [ 'clean', 'sass', 'coffee']
 
 

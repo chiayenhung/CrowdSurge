@@ -4,17 +4,31 @@ body {
 li {
   list-style: none; }
 
+.hidden {
+  display: none; }
+
+.clearfix {
+  clear: both; }
+
+.create {
+  margin: 0 auto; }
+
 .container {
   width: 960px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  text-align: center; }
   .container h1 {
     text-align: center; }
   .container ul {
     width: 60%;
-    margin: inherit; }
+    margin: inherit;
+    text-align: left; }
+    .container ul li .content {
+      float: left; }
+    .container ul li span {
+      float: right;
+      margin: 0 1em; }
     .container ul li a {
       float: right;
-      text-decoration: none; }
-
-.clearfix {
-  clear: both; }
+      text-decoration: none;
+      margin: 0 1em; }

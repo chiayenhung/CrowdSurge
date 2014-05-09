@@ -6,8 +6,17 @@ html(lang="en")
   body
     .container
       h1 home
+      button.create create
+      form(method='post').hidden
+        textarea(name='content')
+        br
+        button Submit
       ul
         for post in posts
-          li.clearfix= post.content
+          li(data-id="#{post.id}").clearfix
+            span.content= post.content
+            a(href='#').delete x
+            a(href='#').edit Edit
             span= dateTransform(post.date)
-            a(href='#') x
+  script(src="//code.jquery.com/jquery-1.11.0.min.js")
+  script(src='js/main.js')

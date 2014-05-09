@@ -21,5 +21,7 @@ app.configure ->
   app.get '/signup', userController.signup
   app.get '/home', postController.getPosts
   app.post '/home', postController.createPost
+  app.put '/home', postController.updatePost
+  app.delete '/home', postController.deletePost
 
 module.exports = app

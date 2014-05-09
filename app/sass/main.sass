@@ -4,9 +4,19 @@ body
 li
   list-style: none
 
+.hidden
+  display: none
+
+.clearfix
+  clear: both
+
+.create
+  margin: 0 auto
+
 .container
   width: 960px
   margin: 0 auto
+  text-align: center
 
   h1
     text-align: center
@@ -14,13 +24,18 @@ li
   ul
     width: 60%
     margin: inherit
+    text-align: left
 
     li
-      
+      .content
+        float: left
+        
+      span
+        float: right
+        margin: 0 1em
       a
         float: right
         text-decoration: none
+        margin: 0 1em
 
 
-.clearfix
-  clear: both
