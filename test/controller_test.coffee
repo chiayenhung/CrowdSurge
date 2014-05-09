@@ -32,13 +32,33 @@ describe 'test', ->
       rowNum = row.length
       formData = 
         content: "test 1"
-      request.post "#{APP_ROOT}", {formData: formData}, (error, response, body) ->
+      request.post "#{APP_ROOT}", {form: formData}, (error, response, body) ->
         expect(error).to.equal null
         db.all query, (err, row) ->
           expect(row.length - 1).to.equal rowNum
           done()
 
+  it 'can update post', (done) ->
+    query = "SELECT * from posts"
+    db.all query, (err, row) ->
+      oldRow = row[0]
+      formData = 
+        id: oldRow.id
+        content: "test 2"
+      request.put "#{APP_ROOT}", {form: formData}, (error, response, body) ->
+        query = "SELECT * from posts WHERE id = #{oldRow.id}"
+        db.get query,(err, row) ->
+          expect(row.content).to.equal "test 2"
+          done()
 
-
-
-
+  it 'can delete post', (done) ->
+    query = "SELECT * from posts"
+    db.all query, (err, row) ->
+      oldRow = row[0]
+      formData = 
+        id: oldRow.id
+      request.del "#{APP_ROOT}", {form: formData}, (err, response, body) ->
+        query = "SELECT * from posts WHERE id = #{oldRow.id}"
+        db.get query,(err, row) ->
+          expect(row).to.equal undefined
+          done()
