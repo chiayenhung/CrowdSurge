@@ -10,14 +10,14 @@ postController.getPosts = (req, res) ->
     if err 
       res.send 500, err
     else
-      console.log row
-      res.render 'home', posts: row
+      res.render 'home', 
+        posts: row
+        dateTransform: dateTransform
 
 postController.createPost = (req, res) ->
   content = req.body.content
   date = new Date()
   query = "INSERT INTO posts (content, date ) VALUES('#{content}', '#{date}')"
-  console.log query
   db.run query, (err, row) ->
     if err
       res.send 500, err
@@ -27,7 +27,10 @@ postController.createPost = (req, res) ->
         if err
           res.send 500, err
         else
-          console.log row
           res.render 'home', posts: row
 
 module.exports = postController
+
+dateTransform = (dateStr) ->
+  d = new Date(dateStr)
+  return "#{d.getFullYear()}/#{d.getMonth() + 1}/#{d.getDate()}"

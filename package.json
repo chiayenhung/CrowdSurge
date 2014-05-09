@@ -14,8 +14,10 @@
   },
   "devDependencies": {
      "grunt": "~0.4.0rc7",
+     "grunt-contrib-clean": "~0.4.1",
      "grunt-contrib-coffee": "~0.7.0",
      "grunt-contrib-watch": "~0.1.4",
+     "grunt-contrib-sass": "~0.7.2",
      "grunt-contrib-jade": "0.8.0",
      "grunt-express": "~1.0.0-beta2",
      "grunt-env": "0.4.0",

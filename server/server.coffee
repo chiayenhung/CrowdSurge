@@ -5,8 +5,6 @@ jade = require 'jade'
 userController = require './controllers/userController'
 postController = require './controllers/postController'
 
-# db = new sqlite.Database "#{__dirname}/../crowdSurge.db"
-
 app = express()
 
 app.configure ->
@@ -20,9 +18,7 @@ app.configure ->
   app.use express.static("#{__dirname}/../public/")
 
   app.get '/login', userController.login
-  # app.post '/signin', userControler.singin
   app.get '/signup', userController.signup
-  # app.post '/signup', userControler.createUser
   app.get '/home', postController.getPosts
   app.post '/home', postController.createPost
 
