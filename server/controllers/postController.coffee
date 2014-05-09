@@ -1,6 +1,6 @@
 sqlite = require('sqlite3').verbose()
 
-db = new sqlite .Database "#{__dirname}/../../crowdSurge.db"
+db = new sqlite .Database "#{__dirname}/../../#{process.env.DB_NAME}"
 
 postController = {}
 

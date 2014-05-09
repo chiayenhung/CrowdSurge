@@ -11,12 +11,19 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-env'
+  grunt.loadNpmTasks 'grunt-mocha-test'
 
   DEV_PATH = "app"
   PRODUCTION_PATH = "public"
 
 
   grunt.initConfig
+
+    mochaTest:
+      controllers:
+        options:
+          reporter: 'spec'
+        src: ['test/*']
 
     express:
       test:
@@ -64,6 +71,12 @@ module.exports = (grunt) ->
         files: ['**/*.coffee']
         tasks: [ 'clean', 'sass', 'coffee']
 
+    env:
+      development:
+        DB_NAME: 'crowdSurge.db'
+      test:
+        DB_NAME: 'crowdSurge_test.db'
+
 
   grunt.registerTask 'sqlite3', ->
     db = new sqlite3.Database "#{__dirname}/crowdSurge.db"
@@ -71,9 +84,17 @@ module.exports = (grunt) ->
       db.run "CREATE TABLE posts (id integer primary key autoincrement, content TEXT, date TEXT)"
     db.close()
 
+  grunt.registerTask 'test', [
+    'env:test'
+    'express:test'
+    'mochaTest'
+  ]
+
+
   grunt.registerTask 'default', [
     # 'sqlite3'
     'clean'
+    'env:development'
     'express:development'
     'sass'
     'coffee'
