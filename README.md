@@ -12,6 +12,16 @@ Jade template engine
 
 ===
 
-install.sh
+## you can run `install.sh`
 
-run 'grunt'
+for install this app
+
+But it will take some time.
+
+##run `grunt`
+
+for run express server
+
+##run `grunt test`
+
+for test
