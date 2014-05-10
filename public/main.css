@@ -4,6 +4,11 @@ body {
 li {
   list-style: none; }
 
+textarea {
+  width: 60%;
+  height: 5em;
+  resize: none; }
+
 .hidden {
   display: none; }
 
@@ -24,7 +29,8 @@ li {
     margin: inherit;
     text-align: left; }
     .container ul li .content {
-      float: left; }
+      float: left;
+      width: 50%; }
     .container ul li span {
       float: right;
       margin: 0 1em; }
@@ -32,3 +38,5 @@ li {
       float: right;
       text-decoration: none;
       margin: 0 1em; }
+    .container ul li textarea {
+      width: 100%; }

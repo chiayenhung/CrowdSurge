@@ -1,4 +1,5 @@
 submitEdit = (e) ->
+  e.preventDefault()
   $currentTarget = $(e.currentTarget)
   $textarea = $currentTarget.siblings("textarea")
   $li = $currentTarget.parents("li")
@@ -10,8 +11,7 @@ submitEdit = (e) ->
       content: $textarea.val()
     method: 'put'
     success: (response) ->
-      $currentTarget.parent("div").siblings(".content").text $textarea.val()
-      $currentTarget.parent(".editing").remove()
+      document.location.href = '/'
 
     error: (response) ->
       console.log response
@@ -51,8 +51,7 @@ $(".delete").click (e) ->
       id: id
     method: 'delete'
     success: (response) ->
-      $li.remove()
-      console.log response
+      document.location.href = '/'
 
     error: (response) ->
       console.log response

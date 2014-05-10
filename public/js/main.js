@@ -3,6 +3,7 @@
 
   submitEdit = function(e) {
     var $currentTarget, $li, $textarea, id;
+    e.preventDefault();
     $currentTarget = $(e.currentTarget);
     $textarea = $currentTarget.siblings("textarea");
     $li = $currentTarget.parents("li");
@@ -15,8 +16,7 @@
       },
       method: 'put',
       success: function(response) {
-        $currentTarget.parent("div").siblings(".content").text($textarea.val());
-        return $currentTarget.parent(".editing").remove();
+        return document.location.href = '/';
       },
       error: function(response) {
         return console.log(response);
@@ -62,8 +62,7 @@
       },
       method: 'delete',
       success: function(response) {
-        $li.remove();
-        return console.log(response);
+        return document.location.href = '/';
       },
       error: function(response) {
         return console.log(response);

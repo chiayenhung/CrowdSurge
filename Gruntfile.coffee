@@ -81,7 +81,13 @@ module.exports = (grunt) ->
   grunt.registerTask 'sqlite3', ->
     db = new sqlite3.Database "#{__dirname}/crowdSurge.db"
     db.serialize ->
-      db.run "CREATE TABLE posts (id integer primary key autoincrement, content TEXT, date TEXT)"
+      db.run "CREATE TABLE if not exists posts (id integer primary key autoincrement, content TEXT, date TEXT)"
+      db.run "CREATE TABLE if not exists users (id integer primary key autoincrement, username TEXT, password TEXT)"
+    db.close()
+    db = new sqlite3.Database "#{__dirname}/crowdSurge_test.db"
+    db.serialize ->
+      db.run "CREATE TABLE if not exists posts (id integer primary key autoincrement, content TEXT, date TEXT)"
+      db.run "CREATE TABLE if not exists users (id integer primary key autoincrement, username TEXT, password TEXT)"
     db.close()
 
   grunt.registerTask 'test', [
@@ -92,7 +98,7 @@ module.exports = (grunt) ->
 
 
   grunt.registerTask 'default', [
-    # 'sqlite3'
+    'sqlite3'
     'clean'
     'env:development'
     'express:development'

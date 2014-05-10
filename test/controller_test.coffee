@@ -6,19 +6,17 @@ sqlite = require('sqlite3').verbose()
 APP_ROOT = 'http://localhost:5000'
 
 describe 'test', ->
-  # console.log "#{APP_ROOT}"
-  # console.log "#{process.env.DB_NAME}"
   db = null
 
   before (done) ->
     db = new sqlite.Database "#{__dirname}/../#{process.env.DB_NAME}"
     db.serialize ->
-      db.run "CREATE TABLE posts (id integer primary key autoincrement, content TEXT, date TEXT)"
+      db.run "CREATE TABLE if not exists posts (id integer primary key autoincrement, content TEXT, date TEXT)"
       done()
 
   after (done) ->
     db.serialize ->
-      db.run "DROP TABLE posts"
+      db.run "DROP TABLE if exists posts"
       done()
 
   it 'can go to the root', (done) ->
