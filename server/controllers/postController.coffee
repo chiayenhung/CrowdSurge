@@ -13,6 +13,7 @@ postController.getPosts = (req, res) ->
       res.render 'home', 
         posts: row
         dateTransform: dateTransform
+        user: req.user
 
 postController.createPost = (req, res) ->
   content = req.body.content
@@ -44,6 +45,9 @@ postController.updatePost = (req, res) ->
 
 postController.deletePost = (req, res) ->
   id = req.body.id
+  password = req.body.password
+  if password != req.user.password
+    return res.send 500, 'wrong password'
   query = "DELETE FROM posts WHERE ID = #{id}"
   db.run query, (err, row) ->
     if err

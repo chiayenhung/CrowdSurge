@@ -15,6 +15,15 @@ textarea {
 .clearfix {
   clear: both; }
 
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  text-align: center;
+  padding: 20% 0;
+  background: rgba(0, 0, 0, 0.4); }
+
 .create {
   margin: 0 auto; }
 
@@ -34,7 +43,7 @@ textarea {
     .container ul li span {
       float: right;
       margin: 0 1em; }
-    .container ul li a {
+    .container ul li a, .container ul li button {
       float: right;
       text-decoration: none;
       margin: 0 1em; }

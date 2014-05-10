@@ -42,30 +42,41 @@
     }
     $li = $(e.currentTarget).parents("li");
     $div = $(document.createElement("div"));
-    $div.addClass('clearfix').addClass('editing');
+    $div.addClass('editing');
     $li.append($div[0]);
     $div.append("<textarea></textarea>");
     $div.children("textarea").val($li.find(".content").text());
-    $div.append("<a href='#'>Submit</a>");
-    return $div.children("a").click(submitEdit);
+    $div.append("<button>Submit</button>");
+    $div.append("<div class='clearfix'></div>");
+    return $div.children("button").click(submitEdit);
   });
 
   $(".delete").click(function(e) {
     var $li, id;
     e.preventDefault();
+    $(".modal").removeClass('hidden');
     $li = $(e.currentTarget).parents("li");
     id = $li.data("id");
+    return $(".delete-id").val(id);
+  });
+
+  $(".comfirm").click(function(e) {
+    var id, password;
+    id = $(this).siblings(".delete-id").val();
+    password = $(this).siblings(".password").val();
     return $.ajax({
       url: document.URL,
       data: {
-        id: id
+        id: id,
+        password: password
       },
       method: 'delete',
-      success: function(response) {
-        return document.location.href = '/';
-      },
       error: function(response) {
+        alert('wrong ');
         return console.log(response);
+      },
+      complete: function() {
+        return document.location.href = '/';
       }
     });
   });

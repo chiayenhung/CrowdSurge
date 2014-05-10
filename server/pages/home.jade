@@ -14,10 +14,18 @@ html(lang="en")
         button Submit
       ul
         for post in posts
-          li(data-id="#{post.id}").clearfix
+          li(data-id="#{post.id}")
             span.content= post.content
             a(href='#').delete x
             a(href='#').edit Edit
             span= dateTransform(post.date)
+            .clearfix
+    .modal.hidden
+      .modal_content
+        label enter your password
+        br
+        input(type='password').password
+        input(type='hidden').delete-id
+        button.comfirm comfirm
   script(src="//code.jquery.com/jquery-1.11.0.min.js")
   script(src='js/main.js')

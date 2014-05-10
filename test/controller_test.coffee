@@ -12,11 +12,29 @@ describe 'test', ->
     db = new sqlite.Database "#{__dirname}/../#{process.env.DB_NAME}"
     db.serialize ->
       db.run "CREATE TABLE if not exists posts (id integer primary key autoincrement, content TEXT, date TEXT)"
+      db.run "CREATE TABLE if not exists users (id integer primary key autoincrement, username TEXT, password TEXT)"
       done()
-
+  
   after (done) ->
     db.serialize ->
       db.run "DROP TABLE if exists posts"
+      db.run "DROP TABLE if exists users"
+      done()
+
+  it 'signup an user', (done) ->
+    formData =
+      username: 'testuser'
+      password: '123456'
+    request.post "#{APP_ROOT}/signup", (error, response, body) ->
+      expect(error).to.equal null
+      done()
+
+  it 'login', (done) ->
+    formData =
+      username: 'testuser'
+      password: '123456'
+    request.post "#{APP_ROOT}/login", (error, response, body) ->
+      expect(error).to.equal null
       done()
 
   it 'can go to the root', (done) ->
