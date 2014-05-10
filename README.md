@@ -40,4 +40,7 @@ for test
 
 5. Delete posts, a modal will prompt, you have to enter you password.
 
+===
+
+I skip password salting
 

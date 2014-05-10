@@ -46,14 +46,19 @@ postController.updatePost = (req, res) ->
 postController.deletePost = (req, res) ->
   id = req.body.id
   password = req.body.password
-  if password != req.user.password
-    return res.send 500, 'wrong password'
-  query = "DELETE FROM posts WHERE ID = #{id}"
-  db.run query, (err, row) ->
+  userId = req.user
+  query = "SELECT * from users WHERE ID = #{userId}"
+  db.get query, (err, row) ->
     if err
-      res.send 500, err
-    else
-      res.send 'success'
+      return res.send 500, err
+    if password != row.password
+      return res.send 500, 'wrong password'
+    query = "DELETE FROM posts WHERE ID = #{id}"
+    db.run query, (err, row) ->
+      if err
+        res.send 500, err
+      else
+        res.send 'success'
 
 
 module.exports = postController

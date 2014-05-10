@@ -12,13 +12,15 @@ passport.use new LocalStrategy { passReqToCallback: true }, (req, username, pass
     user = row
     if !user
       return done(err, false, { message: 'Username not found.' })
+    if password != user.password
+      return done(err, false, {message: 'Wrong Username or Password'})
     done null, user
 
 passport.serializeUser (user, done) ->
-  done null, user
+  done null, user.id
 
-passport.deserializeUser (user, done) ->
-  done null, user
+passport.deserializeUser (id, done) ->
+  done null, id
 
 userController = {}
 

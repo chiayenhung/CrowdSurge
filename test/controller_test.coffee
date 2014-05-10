@@ -5,11 +5,11 @@ sqlite = require('sqlite3').verbose()
 
 APP_ROOT = 'http://localhost:5000'
 
+db = new sqlite.Database "#{__dirname}/../#{process.env.DB_NAME}"
+
 describe 'test', ->
-  db = null
 
   before (done) ->
-    db = new sqlite.Database "#{__dirname}/../#{process.env.DB_NAME}"
     db.serialize ->
       db.run "CREATE TABLE if not exists posts (id integer primary key autoincrement, content TEXT, date TEXT)"
       db.run "CREATE TABLE if not exists users (id integer primary key autoincrement, username TEXT, password TEXT)"
@@ -21,11 +21,11 @@ describe 'test', ->
       db.run "DROP TABLE if exists users"
       done()
 
-  it 'signup an user', (done) ->
+  it 'signup a user', (done) ->
     formData =
       username: 'testuser'
       password: '123456'
-    request.post "#{APP_ROOT}/signup", (error, response, body) ->
+    request.post "#{APP_ROOT}/signup", {form: formData}, (error, response, body) ->
       expect(error).to.equal null
       done()
 
@@ -33,7 +33,7 @@ describe 'test', ->
     formData =
       username: 'testuser'
       password: '123456'
-    request.post "#{APP_ROOT}/login", (error, response, body) ->
+    request.post "#{APP_ROOT}/login", {form: formData}, (error, response, body) ->
       expect(error).to.equal null
       done()
 
@@ -73,6 +73,7 @@ describe 'test', ->
       oldRow = row[0]
       formData = 
         id: oldRow.id
+        password: '123456'
       request.del "#{APP_ROOT}", {form: formData}, (err, response, body) ->
         query = "SELECT * from posts WHERE id = #{oldRow.id}"
         db.get query,(err, row) ->
