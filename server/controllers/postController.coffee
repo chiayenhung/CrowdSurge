@@ -60,4 +60,10 @@ module.exports = postController
 
 dateTransform = (dateStr) ->
   d = new Date(dateStr)
-  return "#{d.getFullYear()}/#{d.getMonth() + 1}/#{d.getDate()} #{d.getHours()}:#{d.getMinutes()}"
+  hour = d.getHours()
+  minute = d.getMinutes()
+  if hour < 10
+    hour = "0" + hour
+  if minute < 10
+    minute = "0" + minute
+  return "#{d.getFullYear()}/#{d.getMonth() + 1}/#{d.getDate()} #{hour}:#{minute}"

@@ -2,11 +2,15 @@ doctype html
 html(lang="en")
   head
     title= title
+    link(href='main.css', rel='stylesheet', type='text/css')
   body
-    h1 signup
-    form(method='post')
-      label username
-      input(name='username')
-      label password
-      input(name='password', type='password')
-      button Submit
+    .container
+      h1 signup
+      form(method='post')
+        label username
+        input(name='username')
+        br
+        label password
+        input(name='password', type='password')
+        br
+        button Submit

@@ -12,7 +12,7 @@ Jade template engine
 
 ===
 
-## you can run `install.sh`
+## you can run `source install.sh`
 
 for install this app
 
