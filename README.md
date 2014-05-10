@@ -1,7 +1,5 @@
 #CrowdSurge
 
-===
-
 node.js / express server
 
 CoffeeScript
@@ -17,6 +15,10 @@ Jade template engine
 for install this app
 
 But it will take some time.
+
+If you have node.js and grunt-cli installed, 
+
+just skip this step
 
 ##run `grunt`
 
@@ -41,6 +43,8 @@ for test
 5. Delete posts, a modal will prompt, you have to enter you password.
 
 ===
+
+## to Do
 
 I skip password salting
 
