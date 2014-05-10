@@ -20,6 +20,14 @@ If you have node.js and grunt-cli installed,
 
 just skip this step
 
+===
+
+##run `npm install`
+
+To install node_modules, which defined in package.json
+
+===
+
 ##run `grunt`
 
 for run express server
