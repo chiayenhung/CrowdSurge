@@ -1,3 +1,6 @@
+JST = 
+  'editBlock': "<div class='editing hidden'><textarea></textarea><button>Submit</button><div class='clearfix'></div></div>"
+
 submitEdit = (e) ->
   e.preventDefault()
   $currentTarget = $(e.currentTarget)
@@ -18,27 +21,24 @@ submitEdit = (e) ->
 
 $(".create").click (e) ->
   e.preventDefault()
-  $("form").toggleClass 'hidden'
+  $("form").slideToggle()
 
 $(".edit").click (e) ->
   e.preventDefault()
   $currentTarget = $(e.currentTarget)
   if $currentTarget.hasClass 'active'
     $currentTarget.removeClass 'active'
-    $currentTarget.siblings(".editing").remove()
+    $currentTarget.siblings(".editing").slideUp ->
+      $currentTarget.siblings(".editing").remove()
     return
   else
     $currentTarget.addClass 'active'
 
   $li = $(e.currentTarget).parents("li")
-  $div = $(document.createElement("div"))
-  $div.addClass 'editing'
-  $li.append($div[0]);
-  $div.append("<textarea></textarea>")
-  $div.children("textarea").val $li.find(".content").text()
-  $div.append("<button>Submit</button>")
-  $div.append("<div class='clearfix'></div>")  
-  $div.children("button").click submitEdit
+  $li.append JST['editBlock']
+  $li.find("textarea").val $li.find(".content").text()
+  $li.find(".editing").slideDown()
+  $li.find("button").click submitEdit
   
 
 $(".delete").click (e) ->
@@ -47,6 +47,11 @@ $(".delete").click (e) ->
   $li = $(e.currentTarget).parents("li")
   id = $li.data("id")
   $(".delete-id").val id
+
+$(".cancel").click (e) ->
+  e.preventDefault()
+  $(".modal").addClass 'hidden'
+  $(".delete-id").val ""
 
 $(".comfirm").click (e) ->
   id = $(this).siblings(".delete-id").val()
@@ -57,8 +62,6 @@ $(".comfirm").click (e) ->
       id: id
       password: password
     method: 'delete'
-    # success: (response) ->
-    #   document.location.href = '/'
 
     error: (response) ->
       alert 'wrong '

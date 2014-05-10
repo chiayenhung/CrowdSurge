@@ -1,5 +1,9 @@
 (function() {
-  var submitEdit;
+  var JST, submitEdit;
+
+  JST = {
+    'editBlock': "<div class='editing hidden'><textarea></textarea><button>Submit</button><div class='clearfix'></div></div>"
+  };
 
   submitEdit = function(e) {
     var $currentTarget, $li, $textarea, id;
@@ -26,29 +30,27 @@
 
   $(".create").click(function(e) {
     e.preventDefault();
-    return $("form").toggleClass('hidden');
+    return $("form").slideToggle();
   });
 
   $(".edit").click(function(e) {
-    var $currentTarget, $div, $li;
+    var $currentTarget, $li;
     e.preventDefault();
     $currentTarget = $(e.currentTarget);
     if ($currentTarget.hasClass('active')) {
       $currentTarget.removeClass('active');
-      $currentTarget.siblings(".editing").remove();
+      $currentTarget.siblings(".editing").slideUp(function() {
+        return $currentTarget.siblings(".editing").remove();
+      });
       return;
     } else {
       $currentTarget.addClass('active');
     }
     $li = $(e.currentTarget).parents("li");
-    $div = $(document.createElement("div"));
-    $div.addClass('editing');
-    $li.append($div[0]);
-    $div.append("<textarea></textarea>");
-    $div.children("textarea").val($li.find(".content").text());
-    $div.append("<button>Submit</button>");
-    $div.append("<div class='clearfix'></div>");
-    return $div.children("button").click(submitEdit);
+    $li.append(JST['editBlock']);
+    $li.find("textarea").val($li.find(".content").text());
+    $li.find(".editing").slideDown();
+    return $li.find("button").click(submitEdit);
   });
 
   $(".delete").click(function(e) {
@@ -58,6 +60,12 @@
     $li = $(e.currentTarget).parents("li");
     id = $li.data("id");
     return $(".delete-id").val(id);
+  });
+
+  $(".cancel").click(function(e) {
+    e.preventDefault();
+    $(".modal").addClass('hidden');
+    return $(".delete-id").val("");
   });
 
   $(".comfirm").click(function(e) {
